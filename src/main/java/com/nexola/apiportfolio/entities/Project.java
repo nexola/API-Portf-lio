@@ -3,7 +3,9 @@ package com.nexola.apiportfolio.entities;
 import jakarta.persistence.*;
 
 import java.time.Year;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_project")
@@ -17,15 +19,23 @@ public class Project {
     private String description;
     private String course;
 
+    @OneToMany(mappedBy = "project")
+    private Set<Technology> technologies = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "experience_id")
+    private Experience experience;
+
     public Project() {
     }
 
-    public Project(Long id, String title, Year year, String description, String course) {
+    public Project(Long id, String title, Year year, String description, String course, Experience experience) {
         this.id = id;
         this.title = title;
         this.conclusionYear = year;
         this.description = description;
         this.course = course;
+        this.experience = experience;
     }
 
     public Long getId() {
@@ -44,11 +54,11 @@ public class Project {
         this.title = title;
     }
 
-    public Year getYear() {
+    public Year getConclusionYear() {
         return conclusionYear;
     }
 
-    public void setYear(Year year) {
+    public void setConclusionYear(Year year) {
         this.conclusionYear = year;
     }
 
@@ -66,6 +76,18 @@ public class Project {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public Set<Technology> getTechnologies() {
+        return technologies;
+    }
+
+    public Experience getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Experience experience) {
+        this.experience = experience;
     }
 
     @Override
