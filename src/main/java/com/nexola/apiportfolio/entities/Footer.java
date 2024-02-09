@@ -15,13 +15,14 @@ public class Footer {
     private String email;
     private String phone;
     private String instagram;
+    private String instagramUser;
     private String github;
     private String linkedin;
     private String curriculum;
 
     public Footer() {}
 
-    public Footer(Long id, String description, String email, String phone, String instagram, String github, String linkedin, String curriculum) {
+    public Footer(Long id, String description, String email, String phone, String instagram, String github, String linkedin, String curriculum, String instagramUser) {
         this.id = id;
         this.description = description;
         this.email = email;
@@ -30,6 +31,7 @@ public class Footer {
         this.github = github;
         this.linkedin = linkedin;
         this.curriculum = curriculum;
+        this.instagramUser = instagramUser;
     }
 
     public Long getId() {
@@ -70,6 +72,14 @@ public class Footer {
 
     public void setInstagram(String instagram) {
         this.instagram = instagram;
+    }
+
+    public String getInstagramUser() {
+        return instagramUser;
+    }
+
+    public void setInstagramUser(String instagramUser) {
+        this.instagramUser = instagramUser;
     }
 
     public String getGithub() {

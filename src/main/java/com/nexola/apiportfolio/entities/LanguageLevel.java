@@ -1,5 +1,5 @@
 package com.nexola.apiportfolio.entities;
 
 public enum LanguageLevel {
-    BEGINNER, INTERMEDIATE, ADVANCED;
+    BEGINNER, INTERMEDIATE, ADVANCED, NATIVE;
 }

@@ -1,9 +1,5 @@
-package com.nexola.apiportfolio;
+package com.nexola.apiportfolio.entities;
 
-import com.nexola.apiportfolio.entities.Certificate;
-import com.nexola.apiportfolio.entities.Complementary;
-import com.nexola.apiportfolio.entities.Diploma;
-import com.nexola.apiportfolio.entities.Language;
 import jakarta.persistence.*;
 
 import java.util.*;

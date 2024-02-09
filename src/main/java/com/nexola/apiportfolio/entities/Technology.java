@@ -2,6 +2,8 @@ package com.nexola.apiportfolio.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,16 +14,14 @@ public class Technology {
     private Long id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
+    @ManyToMany(mappedBy = "technologies")
+    List<Project> projects = new ArrayList<>();
 
     public Technology(){}
 
-    public Technology(Long id, String name, Project project) {
+    public Technology(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.project = project;
     }
 
     public Long getId() {
@@ -40,12 +40,8 @@ public class Technology {
         this.name = name;
     }
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     @Override

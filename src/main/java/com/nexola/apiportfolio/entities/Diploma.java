@@ -1,6 +1,5 @@
 package com.nexola.apiportfolio.entities;
 
-import com.nexola.apiportfolio.Education;
 import jakarta.persistence.*;
 
 import java.time.Year;
@@ -16,6 +15,7 @@ public class Diploma {
     private String course;
     private Year startYear;
     private Year conclusionYear;
+    private String institution;
 
     @ManyToOne
     @JoinColumn(name = "education_id")
@@ -23,13 +23,14 @@ public class Diploma {
 
     public Diploma() {}
 
-    public Diploma(Long id, String degree, String course, Year startYear, Year conclusionYear, Education education) {
+    public Diploma(Long id, String degree, String course, Year startYear, Year conclusionYear, Education education, String institution) {
         this.id = id;
         this.degree = degree;
         this.course = course;
         this.startYear = startYear;
         this.conclusionYear = conclusionYear;
         this.education = education;
+        this.institution = institution;
     }
 
     public Long getId() {
@@ -78,6 +79,14 @@ public class Diploma {
 
     public void setEducation(Education education) {
         this.education = education;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
     @Override

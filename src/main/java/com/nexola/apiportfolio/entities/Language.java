@@ -1,6 +1,5 @@
 package com.nexola.apiportfolio.entities;
 
-import com.nexola.apiportfolio.Education;
 import jakarta.persistence.*;
 
 import java.util.Objects;

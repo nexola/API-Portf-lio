@@ -18,8 +18,13 @@ public class Project {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String course;
+    private String repositoryLink;
+    private String liveLink;
 
-    @OneToMany(mappedBy = "project")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_project_technology",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "technology_id"))
     private Set<Technology> technologies = new HashSet<>();
 
     @ManyToOne
@@ -29,13 +34,15 @@ public class Project {
     public Project() {
     }
 
-    public Project(Long id, String title, Year year, String description, String course, Experience experience) {
+    public Project(Long id, String title, Year year, String description, String course, Experience experience, String repositoryLink, String liveLink) {
         this.id = id;
         this.title = title;
         this.conclusionYear = year;
         this.description = description;
         this.course = course;
         this.experience = experience;
+        this.repositoryLink = repositoryLink;
+        this.liveLink = liveLink;
     }
 
     public Long getId() {
@@ -88,6 +95,26 @@ public class Project {
 
     public void setExperience(Experience experience) {
         this.experience = experience;
+    }
+
+    public String getRepositoryLink() {
+        return repositoryLink;
+    }
+
+    public void setRepositoryLink(String repositoryLink) {
+        this.repositoryLink = repositoryLink;
+    }
+
+    public String getLiveLink() {
+        return liveLink;
+    }
+
+    public void setLiveLink(String liveLink) {
+        this.liveLink = liveLink;
+    }
+
+    public void setTechnologies(Set<Technology> technologies) {
+        this.technologies = technologies;
     }
 
     @Override
