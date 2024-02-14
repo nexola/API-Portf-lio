@@ -2,24 +2,28 @@ package com.nexola.apiportfolio.dto;
 
 import com.nexola.apiportfolio.entities.Role;
 import com.nexola.apiportfolio.entities.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserMinDTO {
     private Long id;
+    @NotBlank(message = "Campo obrigatório")
     private String name;
-    private String username;
-    private List<String> roles = new ArrayList<>();
+    @Email(message = "Favor entrar com email válido")
+    private String email;
+    private Set<RoleDTO> roles = new HashSet<>();
 
     public UserMinDTO(){}
 
     public UserMinDTO(User entity) {
         id = entity.getId();
         name = entity.getName();
-        username = entity.getEmail();
+        email = entity.getEmail();
         for (Role role : entity.getRoles()) {
-            roles.add(role.getAuthority());
+            roles.add(new RoleDTO(role));
         }
     }
 
@@ -31,11 +35,11 @@ public class UserMinDTO {
         return name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public List<String> getRoles() {
+    public Set<RoleDTO> getRoles() {
         return roles;
     }
 }

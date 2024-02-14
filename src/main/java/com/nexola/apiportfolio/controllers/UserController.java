@@ -1,16 +1,18 @@
 package com.nexola.apiportfolio.controllers;
 
 import com.nexola.apiportfolio.dto.UserDTO;
+import com.nexola.apiportfolio.dto.UserInsertDTO;
 import com.nexola.apiportfolio.dto.UserMinDTO;
 import com.nexola.apiportfolio.services.PortfolioService;
 import com.nexola.apiportfolio.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/portfolios")
@@ -20,7 +22,15 @@ public class UserController {
     private UserService service;
 
     @Autowired
-    PortfolioService portfolioService;
+    private PortfolioService portfolioService;
+
+    @PostMapping
+    public ResponseEntity<UserMinDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
+        UserMinDTO newDto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(newDto.getId()).toUri();
+        return ResponseEntity.created(uri).body(newDto);
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PERSON')")
     @GetMapping(value = "/me")
