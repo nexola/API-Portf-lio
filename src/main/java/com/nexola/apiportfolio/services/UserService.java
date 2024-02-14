@@ -1,10 +1,13 @@
 package com.nexola.apiportfolio.services;
 
+import com.nexola.apiportfolio.dto.UserDTO;
+import com.nexola.apiportfolio.dto.UserMinDTO;
 import com.nexola.apiportfolio.entities.Role;
 import com.nexola.apiportfolio.entities.User;
 import com.nexola.apiportfolio.projections.UserDetailsProjection;
 import com.nexola.apiportfolio.repositories.RoleRepository;
 import com.nexola.apiportfolio.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,5 +54,11 @@ public class UserService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    @Transactional
+    public UserMinDTO getMe() {
+        User user = authenticated();
+        return new UserMinDTO(user);
     }
 }
