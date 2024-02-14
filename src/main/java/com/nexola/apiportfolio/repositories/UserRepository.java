@@ -2,6 +2,8 @@ package com.nexola.apiportfolio.repositories;
 
 import com.nexola.apiportfolio.entities.User;
 import com.nexola.apiportfolio.projections.UserDetailsProjection;
+import jakarta.persistence.Id;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

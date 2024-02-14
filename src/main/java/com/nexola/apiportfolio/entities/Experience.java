@@ -10,7 +10,6 @@ import java.util.Objects;
 @Table(name = "tb_experience")
 public class Experience {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String summary;

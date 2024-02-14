@@ -8,7 +8,6 @@ import java.util.*;
 @Table(name = "tb_education")
 public class Education {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String description;

@@ -8,7 +8,6 @@ import java.util.Objects;
 @Table(name = "tb_footer")
 public class Footer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String description;
