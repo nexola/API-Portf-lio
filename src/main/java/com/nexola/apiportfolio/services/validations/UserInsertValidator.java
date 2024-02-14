@@ -30,8 +30,6 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
             list.add(new FieldMessage("email", "Email já cadastrado"));
         }
 
-
-
         for (FieldMessage e : list) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
