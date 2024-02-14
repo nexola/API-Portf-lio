@@ -2,6 +2,7 @@ package com.nexola.apiportfolio.controllers;
 
 import com.nexola.apiportfolio.dto.UserDTO;
 import com.nexola.apiportfolio.dto.UserMinDTO;
+import com.nexola.apiportfolio.services.PortfolioService;
 import com.nexola.apiportfolio.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    PortfolioService portfolioService;
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PERSON')")
     @GetMapping(value = "/me")
     public ResponseEntity<UserMinDTO> getMe () {
@@ -28,7 +32,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_PERSON')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getPortfolio(@PathVariable Long id) {
-        UserDTO dto = service.getPortfolio(id);
+        UserDTO dto = portfolioService.getPortfolio(id);
         return ResponseEntity.ok(dto);
     }
 }
