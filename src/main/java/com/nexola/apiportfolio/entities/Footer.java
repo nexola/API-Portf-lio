@@ -20,9 +20,13 @@ public class Footer {
     private String linkedin;
     private String curriculum;
 
+    @OneToOne
+    @MapsId
+    private User user;
+
     public Footer() {}
 
-    public Footer(Long id, String description, String email, String phone, String instagram, String github, String linkedin, String curriculum, String instagramUser) {
+    public Footer(Long id, String description, String email, String phone, String instagram, String github, String linkedin, String curriculum, String instagramUser, User user) {
         this.id = id;
         this.description = description;
         this.email = email;
@@ -32,6 +36,15 @@ public class Footer {
         this.linkedin = linkedin;
         this.curriculum = curriculum;
         this.instagramUser = instagramUser;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

@@ -27,13 +27,26 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Education education;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Experience experience;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Header header;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Footer footer;
+
     public User (){}
 
-    public User(Long id, String name, String email, String password) {
+    public User(Long id, String name, String email, String password, Education education, Experience experience, Header header, Footer footer) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.education = education;
+        this.experience = experience;
+        this.header = header;
+        this.footer = footer;
     }
 
     public Long getId() {
@@ -62,6 +75,38 @@ public class User implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    public Experience getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Experience experience) {
+        this.experience = experience;
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+
+    public Footer getFooter() {
+        return footer;
+    }
+
+    public void setFooter(Footer footer) {
+        this.footer = footer;
+    }
+
+    public Education getEducation() {
+        return education;
+    }
+
+    public void setEducation(Education education) {
+        this.education = education;
     }
 
     @Override

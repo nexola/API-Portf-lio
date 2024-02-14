@@ -13,12 +13,17 @@ public class Header {
     private String title;
     private String state;
 
+    @OneToOne
+    @MapsId
+    private User user;
+
     public Header() {}
 
-    public Header(Long id, String title, String state) {
+    public Header(Long id, String title, String state, User user) {
         this.id = id;
         this.title = title;
         this.state = state;
+        this.user = user;
     }
 
     public Long getId() {
@@ -43,6 +48,14 @@ public class Header {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

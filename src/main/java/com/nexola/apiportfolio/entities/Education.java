@@ -25,12 +25,17 @@ public class Education {
     @OneToMany(mappedBy = "education")
     private Set<Language> languages = new HashSet<>();
 
+    @OneToOne
+    @MapsId
+    private User user;
+
     public Education() {
     }
 
-    public Education(Long id, String description) {
+    public Education(Long id, String description, User user) {
         this.id = id;
         this.description = description;
+        this.user = user;
     }
 
     public Long getId() {
@@ -63,6 +68,14 @@ public class Education {
 
     public Set<Language> getLanguages() {
         return languages;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -5,9 +5,9 @@ INSERT INTO tb_role (authority) VALUES ('ROLE_PERSON');
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
 
-INSERT INTO tb_header (title, state) VALUES ('Desenvolvedor Fullstack & Estudante de tecnologia', 'São Paulo');
-INSERT INTO tb_footer (description, email, phone, instagram, instagram_user, github, linkedin, curriculum) VALUES ('Estou disponível para projetos e oportunidades de estágio/júnior. Entre em contato comigo para marcarmos uma conversa.', 'vitormatheusfv@gmail.com', '+55 11 95076-5194', 'https://www.instagram.com/_nexola/', '@_nexola', 'https://github.com/nexola', 'https://www.linkedin.com/in/vitor-vianna-a53075215/', 'https://drive.google.com/uc?export=download&id=1K1CNOkiD5QW3_Bm9LwUcDEnTencrqQMV');
-INSERT INTO tb_experience (summary) VALUES ('Estudo análise e desenvolvimento de sistemas e desenvolvo pequenos projetos, com auxílio de ferramentas como Java, HTML, CSS e Javascript, além de trabalhar protótipos de Design UI/UX com Figma');
+INSERT INTO tb_header (user_id, title, state) VALUES (1, 'Desenvolvedor Fullstack & Estudante de tecnologia', 'São Paulo');
+INSERT INTO tb_footer (user_id, description, email, phone, instagram, instagram_user, github, linkedin, curriculum) VALUES (1, 'Estou disponível para projetos e oportunidades de estágio/júnior. Entre em contato comigo para marcarmos uma conversa.', 'vitormatheusfv@gmail.com', '+55 11 95076-5194', 'https://www.instagram.com/_nexola/', '@_nexola', 'https://github.com/nexola', 'https://www.linkedin.com/in/vitor-vianna-a53075215/', 'https://drive.google.com/uc?export=download&id=1K1CNOkiD5QW3_Bm9LwUcDEnTencrqQMV');
+INSERT INTO tb_experience (user_id, summary) VALUES (1, 'Estudo análise e desenvolvimento de sistemas e desenvolvo pequenos projetos, com auxílio de ferramentas como Java, HTML, CSS e Javascript, além de trabalhar protótipos de Design UI/UX com Figma');
 
 INSERT INTO tb_project (experience_id, title, conclusion_year, description, course, repository_link, live_Link) VALUES (1, 'DS Catalog', '2024', 'DS Catalog é uma API Rest focada em uma construção de catálogo de produtos, disponibiliza uma área administrativa completa para adicionar, alterar ou remover os recursos', 'Java Spring Expert', 'https://github.com/nexola/dscatalog', null);
 INSERT INTO tb_project (experience_id, title, conclusion_year, description, course, repository_link, live_Link) VALUES (1, 'DS Commerce', '2024', 'DS Commerce é uma API Rest projetada para simular um site de vendas, com autenticação e controle de acesso.', 'Java Spring Professional', 'https://github.com/nexola/dscommerce', null);
@@ -64,7 +64,7 @@ INSERT INTO tb_project_technology (project_id, technology_id) VALUES (5, 18);
 INSERT INTO tb_project_technology (project_id, technology_id) VALUES (5, 19);
 INSERT INTO tb_project_technology (project_id, technology_id) VALUES (6, 1);
 
-INSERT INTO tb_education (description) VALUES ('Minha mais recente experiência acadêmica é a graduação, estou no semestre 4/6. Além disso me mantenho sempre atualizado com cursos intensivos online e muita leitura, atualmente estou estudando Java Spring Boot e Banco de dados/SQL');
+INSERT INTO tb_education (user_id, description) VALUES (1, 'Minha mais recente experiência acadêmica é a graduação, estou no semestre 4/6. Além disso me mantenho sempre atualizado com cursos intensivos online e muita leitura, atualmente estou estudando Java Spring Boot e Banco de dados/SQL');
 
 INSERT INTO tb_language (education_id, language, level) VALUES (1, 'Inglês', 1);
 INSERT INTO tb_language (education_id, language, level) VALUES (1, 'Estádio', 0);

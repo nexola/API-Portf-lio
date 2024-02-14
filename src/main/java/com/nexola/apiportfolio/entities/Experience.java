@@ -18,11 +18,16 @@ public class Experience {
     @OneToMany(mappedBy = "experience")
     private List<Project> projects = new ArrayList<>();
 
+    @OneToOne
+    @MapsId
+    private User user;
+
     public Experience(){}
 
-    public Experience(Long id, String summary) {
+    public Experience(Long id, String summary, User user) {
         this.id = id;
         this.summary = summary;
+        this.user = user;
     }
 
     public Long getId() {
@@ -39,6 +44,18 @@ public class Experience {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Project> getProjects() {
