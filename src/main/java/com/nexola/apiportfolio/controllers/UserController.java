@@ -1,7 +1,5 @@
 package com.nexola.apiportfolio.controllers;
 
-import com.nexola.apiportfolio.dto.EducationDTO;
-import com.nexola.apiportfolio.dto.ProjectDTO;
 import com.nexola.apiportfolio.dto.UserDTO;
 import com.nexola.apiportfolio.dto.UserMinDTO;
 import com.nexola.apiportfolio.services.UserService;
@@ -13,22 +11,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/portfolios")
 public class UserController {
 
     @Autowired
     private UserService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PERSON')")
     @GetMapping(value = "/me")
     public ResponseEntity<UserMinDTO> getMe () {
         UserMinDTO dto = service.getMe();
         return ResponseEntity.ok(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_PERSON')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getPortfolio(@PathVariable Long id) {
         UserDTO dto = service.getPortfolio(id);
