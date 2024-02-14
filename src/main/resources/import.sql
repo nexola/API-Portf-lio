@@ -1,3 +1,10 @@
+INSERT INTO tb_user (name, email, password) VALUES ('Vitor Vianna', 'vitormatheusfv@gmail.com', 'passw123456');
+INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
+INSERT INTO tb_role (authority) VALUES ('ROLE_PERSON');
+
+INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
+
 INSERT INTO tb_header (title, state) VALUES ('Desenvolvedor Fullstack & Estudante de tecnologia', 'São Paulo');
 INSERT INTO tb_footer (description, email, phone, instagram, instagram_user, github, linkedin, curriculum) VALUES ('Estou disponível para projetos e oportunidades de estágio/júnior. Entre em contato comigo para marcarmos uma conversa.', 'vitormatheusfv@gmail.com', '+55 11 95076-5194', 'https://www.instagram.com/_nexola/', '@_nexola', 'https://github.com/nexola', 'https://www.linkedin.com/in/vitor-vianna-a53075215/', 'https://drive.google.com/uc?export=download&id=1K1CNOkiD5QW3_Bm9LwUcDEnTencrqQMV');
 INSERT INTO tb_experience (summary) VALUES ('Estudo análise e desenvolvimento de sistemas e desenvolvo pequenos projetos, com auxílio de ferramentas como Java, HTML, CSS e Javascript, além de trabalhar protótipos de Design UI/UX com Figma');
