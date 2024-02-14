@@ -7,7 +7,7 @@ import com.nexola.apiportfolio.entities.User;
 import com.nexola.apiportfolio.projections.UserDetailsProjection;
 import com.nexola.apiportfolio.repositories.RoleRepository;
 import com.nexola.apiportfolio.repositories.UserRepository;
-import jakarta.transaction.Transactional;
+import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,13 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Transactional(readOnly = true)
+    public UserDTO getPortfolio(Long id) {
+        User user = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado"));
+        return new UserDTO(user);
+    }
 
     protected User authenticated() {
         try {
