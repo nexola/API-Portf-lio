@@ -5,6 +5,7 @@ import com.nexola.apiportfolio.dto.UserMinDTO;
 import com.nexola.apiportfolio.entities.*;
 import com.nexola.apiportfolio.projections.UserDetailsProjection;
 import com.nexola.apiportfolio.repositories.*;
+import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,34 +24,11 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository repository;
 
-    @Autowired
-    private EducationRepository educationRepository;
-
-    @Autowired
-    private HeaderRepository headerRepository;
-
-    @Autowired
-    private FooterRepository footerRepository;
-
-    @Autowired
-    private ExperienceRepository experienceRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
     @Transactional(readOnly = true)
     public UserDTO getPortfolio(Long id) {
-        User user = repository.getPortfolio(id);
-
-        Header header = headerRepository.getHeader(id);
-        Footer footer = footerRepository.getFooter(id);
-        Education education = educationRepository.getEducation(id);
-        Experience experience = experienceRepository.getExperience(id);
-
-        user.setHeader(header);
-        user.setFooter(footer);
-        user.setEducation(education);
-        user.setExperience(experience);
+        User user = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado")
+        ) ;
 
         return new UserDTO(user);
     }
