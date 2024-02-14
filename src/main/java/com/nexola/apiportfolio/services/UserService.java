@@ -1,12 +1,12 @@
 package com.nexola.apiportfolio.services;
 
+import com.nexola.apiportfolio.dto.EducationDTO;
+import com.nexola.apiportfolio.dto.ProjectDTO;
 import com.nexola.apiportfolio.dto.UserDTO;
 import com.nexola.apiportfolio.dto.UserMinDTO;
-import com.nexola.apiportfolio.entities.Role;
-import com.nexola.apiportfolio.entities.User;
+import com.nexola.apiportfolio.entities.*;
 import com.nexola.apiportfolio.projections.UserDetailsProjection;
-import com.nexola.apiportfolio.repositories.RoleRepository;
-import com.nexola.apiportfolio.repositories.UserRepository;
+import com.nexola.apiportfolio.repositories.*;
 import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -27,12 +28,34 @@ public class UserService implements UserDetailsService {
     private UserRepository repository;
 
     @Autowired
+    private EducationRepository educationRepository;
+
+    @Autowired
+    private HeaderRepository headerRepository;
+
+    @Autowired
+    private FooterRepository footerRepository;
+
+    @Autowired
+    private ExperienceRepository experienceRepository;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Transactional(readOnly = true)
     public UserDTO getPortfolio(Long id) {
-        User user = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Recurso não encontrado"));
+        User user = repository.getPortfolio(id);
+
+        Header header = headerRepository.getHeader(id);
+        Footer footer = footerRepository.getFooter(id);
+        Education education = educationRepository.getEducation(id);
+        Experience experience = experienceRepository.getExperience(id);
+
+        user.setHeader(header);
+        user.setFooter(footer);
+        user.setEducation(education);
+        user.setExperience(experience);
+
         return new UserDTO(user);
     }
 

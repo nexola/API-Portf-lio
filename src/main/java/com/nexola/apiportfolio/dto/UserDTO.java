@@ -29,6 +29,11 @@ public class UserDTO {
         for (Role role : entity.getRoles()) {
             roles.add(role.getAuthority());
         }
+        header = new HeaderDTO(entity.getHeader());
+        footer = new FooterDTO(entity.getFooter());
+        experience = new ExperienceDTO(entity.getExperience());
+        education = new EducationDTO(entity.getEducation());
+
     }
 
     public Long getId() {

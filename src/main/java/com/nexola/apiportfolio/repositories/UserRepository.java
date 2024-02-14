@@ -22,4 +22,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
             """)
     List<UserDetailsProjection> searchUserAndRolesByEmail(String email);
 
+    @Query("""
+            SELECT obj FROM User obj
+            WHERE obj.id = :id
+            """)
+    User getPortfolio(Long id);
 }

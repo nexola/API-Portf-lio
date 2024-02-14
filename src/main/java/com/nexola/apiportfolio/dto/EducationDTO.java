@@ -26,7 +26,7 @@ public class EducationDTO {
         for (Diploma diploma : entity.getDiplomas()) {
             degrees.add(new DiplomaDTO(diploma));
         }
-        for (Complementary complementary : entity.getComplementaries()) {
+        for (Complementary complementary : entity.getCourses()) {
             courses.add(new ComplementaryDTO(complementary));
         }
         for (Certificate certificate : entity.getCertificates()) {

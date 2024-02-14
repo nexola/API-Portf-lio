@@ -4,6 +4,7 @@ import com.nexola.apiportfolio.entities.Project;
 import com.nexola.apiportfolio.entities.Technology;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDTO {
@@ -12,7 +13,7 @@ public class ProjectDTO {
     private Year conclusionYear;
     private String description;
     private String course;
-    private List<String> technologies;
+    private List<String> technologies = new ArrayList<>();
 
     public ProjectDTO(){}
 

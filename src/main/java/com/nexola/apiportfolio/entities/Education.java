@@ -20,7 +20,7 @@ public class Education {
     private List<Certificate> certificates = new ArrayList<>();
 
     @OneToMany(mappedBy = "education")
-    private List<Complementary> complementaries = new ArrayList<>();
+    private List<Complementary> courses = new ArrayList<>();
 
     @OneToMany(mappedBy = "education")
     private Set<Language> languages = new HashSet<>();
@@ -62,8 +62,8 @@ public class Education {
         return certificates;
     }
 
-    public List<Complementary> getComplementaries() {
-        return complementaries;
+    public List<Complementary> getCourses() {
+        return courses;
     }
 
     public Set<Language> getLanguages() {

@@ -23,4 +23,12 @@ public class ExperienceDTO {
             projects.add(new ProjectDTO(proj));
         }
     }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public List<ProjectDTO> getProjects() {
+        return projects;
+    }
 }
