@@ -1,4 +1,4 @@
-package com.nexola.apiportfolio.dto;
+package com.nexola.apiportfolio.models.dto;
 
 public class FieldMessage {
     private String fieldName;

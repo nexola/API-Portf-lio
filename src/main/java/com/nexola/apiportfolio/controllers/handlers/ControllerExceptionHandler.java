@@ -1,6 +1,6 @@
 package com.nexola.apiportfolio.controllers.handlers;
 
-import com.nexola.apiportfolio.dto.CustomError;
+import com.nexola.apiportfolio.models.dto.CustomError;
 import com.nexola.apiportfolio.services.exceptions.EmailException;
 import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
