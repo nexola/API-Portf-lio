@@ -9,12 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/portfolio")
 public class PortfolioController {
 
     @Autowired
     private PortfolioService service;
+
+    @GetMapping
+    public ResponseEntity<List<PortfolioDTO>> findAll(){
+        List<PortfolioDTO> resultList = service.findAll();
+        return ResponseEntity.ok(resultList);
+    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<PortfolioDTO> getPortfolio(@RequestParam String id) {

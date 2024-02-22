@@ -26,7 +26,7 @@ public class TestConfig {
         userRepository.deleteAll();
         portfolioRepository.deleteAll();
 
-        User vitor = new User(null, "vitormatheusfv@gmail.com", "pass123456");
+        User vitor = new User(null, "Vitor Vianna", "vitormatheusfv@gmail.com", "pass123456");
 
         userRepository.save(vitor);
 

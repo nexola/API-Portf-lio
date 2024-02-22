@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PortfolioService {
 
@@ -20,6 +23,12 @@ public class PortfolioService {
                 () -> new ResourceNotFoundException("Recurso não encontrado")
         );
         return new PortfolioDTO(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PortfolioDTO> findAll() {
+        List<Portfolio> list = repository.findAll();
+        return list.stream().map(x -> new PortfolioDTO(x)).collect(Collectors.toList());
     }
 }
 
