@@ -1,6 +1,7 @@
 package com.nexola.apiportfolio.models.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
@@ -12,6 +13,9 @@ public class User {
     private String name;
     private String email;
     private String password;
+
+    @DBRef(lazy = true)
+    private Portfolio portfolio;
 
     public User(){}
 
