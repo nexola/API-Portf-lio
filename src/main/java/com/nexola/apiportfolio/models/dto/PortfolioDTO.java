@@ -1,9 +1,6 @@
 package com.nexola.apiportfolio.models.dto;
 
-import com.nexola.apiportfolio.models.embedded.Education;
-import com.nexola.apiportfolio.models.embedded.Experience;
-import com.nexola.apiportfolio.models.embedded.Footer;
-import com.nexola.apiportfolio.models.embedded.Header;
+import com.nexola.apiportfolio.models.embedded.*;
 import com.nexola.apiportfolio.models.entities.Portfolio;
 import com.nexola.apiportfolio.models.entities.User;
 
@@ -14,7 +11,7 @@ public class PortfolioDTO {
     private Footer footer;
     private Experience experience;
     private Education education;
-    private User author;
+    private Author author;
 
     public PortfolioDTO(){}
 
@@ -27,7 +24,7 @@ public class PortfolioDTO {
         author = entity.getAuthor();
     }
 
-    public PortfolioDTO(String id, Header header, Footer footer, Experience experience, Education education, User author) {
+    public PortfolioDTO(String id, Header header, Footer footer, Experience experience, Education education, Author author) {
         this.id = id;
         this.header = header;
         this.footer = footer;
@@ -56,7 +53,7 @@ public class PortfolioDTO {
         return education;
     }
 
-    public User getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 }

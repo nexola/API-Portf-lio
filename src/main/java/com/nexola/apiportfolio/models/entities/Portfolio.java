@@ -1,10 +1,7 @@
 package com.nexola.apiportfolio.models.entities;
 
 import com.nexola.apiportfolio.models.dto.PortfolioDTO;
-import com.nexola.apiportfolio.models.embedded.Education;
-import com.nexola.apiportfolio.models.embedded.Experience;
-import com.nexola.apiportfolio.models.embedded.Footer;
-import com.nexola.apiportfolio.models.embedded.Header;
+import com.nexola.apiportfolio.models.embedded.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,7 +16,7 @@ public class Portfolio {
     private Footer footer;
     private Experience experience;
     private Education education;
-    private User author;
+    private Author author;
 
     public Portfolio(){}
 
@@ -31,7 +28,7 @@ public class Portfolio {
         author = dto.getAuthor();
     }
 
-    public Portfolio(String id, Header header, Footer footer, Experience experience, Education education, User author) {
+    public Portfolio(String id, Header header, Footer footer, Experience experience, Education education, Author author) {
         this.id = id;
         this.header = header;
         this.footer = footer;
@@ -80,11 +77,11 @@ public class Portfolio {
         this.education = education;
     }
 
-    public User getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 

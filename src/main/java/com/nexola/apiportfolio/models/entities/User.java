@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.sound.sampled.Port;
 import java.util.Objects;
 
 @Document(collection = "users")
@@ -23,6 +24,13 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String id, String email, String password, Portfolio portfolio) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.portfolio = portfolio;
     }
 
     public String getId() {
@@ -55,6 +63,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 
     @Override
