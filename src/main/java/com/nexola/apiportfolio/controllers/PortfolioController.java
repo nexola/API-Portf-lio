@@ -1,7 +1,7 @@
 package com.nexola.apiportfolio.controllers;
 
-import com.nexola.apiportfolio.models.dto.UserDTO;
-import com.nexola.apiportfolio.services.UserService;
+import com.nexola.apiportfolio.models.dto.PortfolioDTO;
+import com.nexola.apiportfolio.services.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/portfolio")
+public class PortfolioController {
 
     @Autowired
-    private UserService service;
+    private PortfolioService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> findById(@RequestParam String id) {
-        UserDTO result = service.findById(id);
+    public ResponseEntity<PortfolioDTO> getPortfolio(@RequestParam String id) {
+        PortfolioDTO result = service.getPortfolio(id);
         return ResponseEntity.ok(result);
     }
 }
