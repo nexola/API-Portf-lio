@@ -15,16 +15,16 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
     private UserService service;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @GetMapping(value = "/{id}/portfolio")
-    public ResponseEntity<PortfolioDTO> getUserPortfolio(@PathVariable String id) {
-        PortfolioDTO result = service.getUserPortfolio(id);
+    @GetMapping(value = "/portfolio")
+    public ResponseEntity<PortfolioDTO> getUserPortfolio() {
+        PortfolioDTO result = service.getUserPortfolio();
         return ResponseEntity.ok(result);
     }
 

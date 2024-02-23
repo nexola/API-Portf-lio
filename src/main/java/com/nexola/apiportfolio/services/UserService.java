@@ -50,12 +50,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public PortfolioDTO getUserPortfolio(String id) {
-        User user = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Usuário não encontrado")
-        );
+    public PortfolioDTO getUserPortfolio() {
+        User user = authenticated();
 
-        validateSelf(id);
+        validateSelf(user.getId());
 
         return new PortfolioDTO(user.getPortfolio());
     }
