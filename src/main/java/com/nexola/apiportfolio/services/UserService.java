@@ -44,12 +44,6 @@ public class UserService implements UserDetailsService {
     private PortfolioRepository portfolioRepository;
 
     @Transactional(readOnly = true)
-    public List<UserDTO> findAll() {
-        List<User> result = repository.findAll();
-        return result.stream().map(UserDTO::new).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public PortfolioDTO getUserPortfolio() {
         User user = authenticated();
 

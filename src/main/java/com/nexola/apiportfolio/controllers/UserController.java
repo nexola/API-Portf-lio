@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -37,15 +36,9 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @GetMapping(value = "/me")
+    @GetMapping
     public ResponseEntity<UserMinDTO> getMe () {
         UserMinDTO dto = service.getMe();
-        return ResponseEntity.ok(dto);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<UserDTO>> findAll() {
-        List<UserDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
     }
 }
