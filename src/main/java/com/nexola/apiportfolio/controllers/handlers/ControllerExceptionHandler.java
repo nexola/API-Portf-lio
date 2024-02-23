@@ -2,6 +2,7 @@ package com.nexola.apiportfolio.controllers.handlers;
 
 import com.nexola.apiportfolio.models.dto.CustomError;
 import com.nexola.apiportfolio.services.exceptions.EmailException;
+import com.nexola.apiportfolio.services.exceptions.ForbiddenException;
 import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,13 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(EmailException.class)
     public ResponseEntity<CustomError> email(EmailException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> forbbiden(ForbiddenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
         CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }

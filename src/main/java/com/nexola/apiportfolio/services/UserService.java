@@ -7,6 +7,7 @@ import com.nexola.apiportfolio.models.entities.Role;
 import com.nexola.apiportfolio.models.entities.User;
 import com.nexola.apiportfolio.models.projections.UserDetailsProjection;
 import com.nexola.apiportfolio.repositories.UserRepository;
+import com.nexola.apiportfolio.services.exceptions.ForbiddenException;
 import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -44,8 +45,10 @@ public class UserService implements UserDetailsService {
     @Transactional(readOnly = true)
     public PortfolioDTO getUserPortfolio(String id) {
         User user = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Recurso não encontrado")
+                () -> new ResourceNotFoundException("Usuário não encontrado")
         );
+
+        validateSelfOrAdmin(id);
 
         return new PortfolioDTO(user.getPortfolio());
     }
@@ -81,5 +84,15 @@ public class UserService implements UserDetailsService {
     public UserMinDTO getMe() {
         User user = authenticated();
         return new UserMinDTO(user);
+    }
+
+    private void validateSelfOrAdmin(String userId) {
+        User me = authenticated();
+        if (me.hasRole("ROLE_ADMIN")) {
+            return;
+        }
+        if (!me.getId().equals(userId)) {
+            throw new ForbiddenException("Acesso negado");
+        }
     }
 }

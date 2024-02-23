@@ -18,8 +18,9 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{id}/portfolio")
-    private ResponseEntity<PortfolioDTO> getUserPortfolio(@PathVariable String id) {
+    public ResponseEntity<PortfolioDTO> getUserPortfolio(@PathVariable String id) {
         PortfolioDTO result = service.getUserPortfolio(id);
         return ResponseEntity.ok(result);
     }
@@ -35,11 +36,5 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> findAll() {
         List<UserDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
-    }
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-        UserDTO result = service.findById(id);
-        return ResponseEntity.ok(result);
     }
 }
