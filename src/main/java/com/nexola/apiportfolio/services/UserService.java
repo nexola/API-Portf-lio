@@ -1,9 +1,12 @@
 package com.nexola.apiportfolio.services;
 
 import com.nexola.apiportfolio.models.dto.*;
+import com.nexola.apiportfolio.models.embedded.Author;
+import com.nexola.apiportfolio.models.entities.Portfolio;
 import com.nexola.apiportfolio.models.entities.Role;
 import com.nexola.apiportfolio.models.entities.User;
 import com.nexola.apiportfolio.models.projections.UserDetailsProjection;
+import com.nexola.apiportfolio.repositories.PortfolioRepository;
 import com.nexola.apiportfolio.repositories.RoleRepository;
 import com.nexola.apiportfolio.repositories.UserRepository;
 import com.nexola.apiportfolio.services.exceptions.ForbiddenException;
@@ -34,6 +37,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private PortfolioRepository portfolioRepository;
+
     @Transactional(readOnly = true)
     public List<UserDTO> findAll() {
         List<User> result = repository.findAll();
@@ -54,12 +60,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserDTO insert(UserInsertDTO dto) {
         User entity = new User();
-        copyDtoToEntity(dto, entity);
-        entity.getRoles().clear();
-        Role role = roleRepository.findByAuthority("ROLE_USER");
-        entity.getRoles().add(role);
-        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-        entity = repository.save(entity);
+        entity = createInsertUser(entity, dto);
         return new UserDTO(entity);
     }
 
@@ -107,5 +108,20 @@ public class UserService implements UserDetailsService {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
+    }
+
+    private User createInsertUser(User user, UserInsertDTO dto) {
+        copyDtoToEntity(dto, user);
+        user.getRoles().clear();
+        Role role = roleRepository.findByAuthority("ROLE_USER");
+        Portfolio portfolio = new Portfolio();
+        portfolio = portfolioRepository.save(portfolio);
+        user.getRoles().add(role);
+        user.setPortfolio(portfolio);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user = repository.save(user);
+        portfolio.setAuthor(new Author(user));
+        portfolioRepository.save(portfolio);
+        return user;
     }
 }

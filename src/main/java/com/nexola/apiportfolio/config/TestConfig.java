@@ -45,6 +45,7 @@ public class TestConfig {
 
         Portfolio portfolio = new Portfolio(null, header, footer, experience, education, new Author(vitor));
         Portfolio blankPortfolio = new Portfolio();
+        blankPortfolio.setAuthor(new Author(julio));
         portfolioRepository.saveAll(Arrays.asList(portfolio, blankPortfolio));
 
         Role roleAdmin = new Role(null, "ROLE_ADMIN");
