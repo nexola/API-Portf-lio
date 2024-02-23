@@ -1,10 +1,8 @@
 package com.nexola.apiportfolio.controllers;
 
-import com.nexola.apiportfolio.models.dto.PortfolioDTO;
-import com.nexola.apiportfolio.models.dto.UserDTO;
-import com.nexola.apiportfolio.models.dto.UserInsertDTO;
-import com.nexola.apiportfolio.models.dto.UserMinDTO;
+import com.nexola.apiportfolio.models.dto.*;
 import com.nexola.apiportfolio.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO dto) {
+    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
         UserDTO newDto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newDto.getId()).toUri();
