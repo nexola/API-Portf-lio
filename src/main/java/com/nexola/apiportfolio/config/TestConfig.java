@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.util.Arrays;
-
 @Configuration
 @Profile("test")
 public class TestConfig {
@@ -49,9 +47,7 @@ public class TestConfig {
         Role roleUser = new Role(null, "ROLE_USER");
 
         roleAdmin = roleRepository.save((roleAdmin));
-
-        System.out.println(roleAdmin.getId());
-        System.out.println(roleAdmin.getAuthority());
+        roleUser = roleRepository.save((roleUser));
 
         vitor.getRoles().add(roleAdmin);
         vitor.getRoles().add(roleUser);

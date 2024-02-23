@@ -2,15 +2,19 @@ package com.nexola.apiportfolio.services;
 
 import com.nexola.apiportfolio.models.dto.PortfolioDTO;
 import com.nexola.apiportfolio.models.dto.UserDTO;
+import com.nexola.apiportfolio.models.dto.UserMinDTO;
 import com.nexola.apiportfolio.models.entities.Role;
 import com.nexola.apiportfolio.models.entities.User;
 import com.nexola.apiportfolio.models.projections.UserDetailsProjection;
 import com.nexola.apiportfolio.repositories.UserRepository;
 import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +62,24 @@ public class UserService implements UserDetailsService {
             user.getRoles().add(role);
         }
 
-
         return user;
+    }
+
+    protected User authenticated() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
+            String username = jwtPrincipal.getClaim("username");
+            return repository.findByEmail(username).get();
+        }
+        catch (Exception e) {
+            throw new UsernameNotFoundException("Usuário inválido");
+        }
+    }
+
+    @Transactional
+    public UserMinDTO getMe() {
+        User user = authenticated();
+        return new UserMinDTO(user);
     }
 }
