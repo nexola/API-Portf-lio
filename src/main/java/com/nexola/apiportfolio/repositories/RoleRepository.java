@@ -13,5 +13,5 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends MongoRepository<Role, String> {
 
-
+    Role findByAuthority(String authority);
 }

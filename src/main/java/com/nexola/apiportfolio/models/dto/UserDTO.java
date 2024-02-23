@@ -1,11 +1,17 @@
 package com.nexola.apiportfolio.models.dto;
 
+import com.nexola.apiportfolio.models.entities.Role;
 import com.nexola.apiportfolio.models.entities.User;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserDTO {
     private String id;
     private String name;
     private String email;
+
+    private Set<RoleDTO> roles = new HashSet<>();
 
     public UserDTO(){}
 
@@ -13,6 +19,9 @@ public class UserDTO {
         id = entity.getId();
         name = entity.getName();
         email = entity.getEmail();
+        for (Role role : entity.getRoles()) {
+            roles.add(new RoleDTO(role));
+        }
     }
 
     public UserDTO(String id, String name, String email) {
@@ -31,5 +40,9 @@ public class UserDTO {
 
     public String getEmail() {
         return email;
+    }
+
+    public Set<RoleDTO> getRoles() {
+        return roles;
     }
 }

@@ -1,11 +1,10 @@
 package com.nexola.apiportfolio.services;
 
-import com.nexola.apiportfolio.models.dto.PortfolioDTO;
-import com.nexola.apiportfolio.models.dto.UserDTO;
-import com.nexola.apiportfolio.models.dto.UserMinDTO;
+import com.nexola.apiportfolio.models.dto.*;
 import com.nexola.apiportfolio.models.entities.Role;
 import com.nexola.apiportfolio.models.entities.User;
 import com.nexola.apiportfolio.models.projections.UserDetailsProjection;
+import com.nexola.apiportfolio.repositories.RoleRepository;
 import com.nexola.apiportfolio.repositories.UserRepository;
 import com.nexola.apiportfolio.services.exceptions.ForbiddenException;
 import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
@@ -15,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,18 +28,16 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Transactional(readOnly = true)
     public List<UserDTO> findAll() {
         List<User> result = repository.findAll();
         return result.stream().map(UserDTO::new).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public UserDTO findById(String id) {
-        User user = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Usuário não encontrado")
-        );
-        return new UserDTO(user);
     }
 
     @Transactional(readOnly = true)
@@ -48,9 +46,21 @@ public class UserService implements UserDetailsService {
                 () -> new ResourceNotFoundException("Usuário não encontrado")
         );
 
-        validateSelfOrAdmin(id);
+        validateSelf(id);
 
         return new PortfolioDTO(user.getPortfolio());
+    }
+
+    @Transactional
+    public UserDTO insert(UserInsertDTO dto) {
+        User entity = new User();
+        copyDtoToEntity(dto, entity);
+        entity.getRoles().clear();
+        Role role = roleRepository.findByAuthority("ROLE_USER");
+        entity.getRoles().add(role);
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+        entity = repository.save(entity);
+        return new UserDTO(entity);
     }
 
     @Override
@@ -86,13 +96,16 @@ public class UserService implements UserDetailsService {
         return new UserMinDTO(user);
     }
 
-    private void validateSelfOrAdmin(String userId) {
+    private void validateSelf(String userId) {
         User me = authenticated();
-        if (me.hasRole("ROLE_ADMIN")) {
-            return;
-        }
         if (!me.getId().equals(userId)) {
             throw new ForbiddenException("Acesso negado");
         }
+    }
+
+    private void copyDtoToEntity(UserDTO dto, User entity) {
+        entity.setId(dto.getId());
+        entity.setName(dto.getName());
+        entity.setEmail(dto.getEmail());
     }
 }
