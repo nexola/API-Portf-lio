@@ -2,8 +2,10 @@ package com.nexola.apiportfolio.config;
 
 import com.nexola.apiportfolio.models.embedded.*;
 import com.nexola.apiportfolio.models.entities.Portfolio;
+import com.nexola.apiportfolio.models.entities.Role;
 import com.nexola.apiportfolio.models.entities.User;
 import com.nexola.apiportfolio.repositories.PortfolioRepository;
+import com.nexola.apiportfolio.repositories.RoleRepository;
 import com.nexola.apiportfolio.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,15 @@ public class TestConfig {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @PostConstruct
     public void init() {
         userRepository.deleteAll();
         portfolioRepository.deleteAll();
 
-        User vitor = new User(null, "Vitor Vianna", "vitormatheusfv@gmail.com", "pass123456");
+        User vitor = new User(null, "Vitor Vianna", "vitormatheusfv@gmail.com", "$2a$12$xkt3ljT21SVhrhfJSw.6nuqpLHLEuD0DTDFF8FCoLwGFJ8seFE3tO");
 
         userRepository.save(vitor);
 
@@ -40,6 +45,16 @@ public class TestConfig {
 
         portfolioRepository.save(portfolio);
 
+        Role roleAdmin = new Role(null, "ROLE_ADMIN");
+        Role roleUser = new Role(null, "ROLE_USER");
+
+        roleAdmin = roleRepository.save((roleAdmin));
+
+        System.out.println(roleAdmin.getId());
+        System.out.println(roleAdmin.getAuthority());
+
+        vitor.getRoles().add(roleAdmin);
+        vitor.getRoles().add(roleUser);
         vitor.setPortfolio(portfolio);
         userRepository.save(vitor);
     }

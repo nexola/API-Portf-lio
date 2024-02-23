@@ -23,7 +23,6 @@ public class User implements UserDetails {
     @DBRef(lazy = true)
     private Portfolio portfolio;
 
-    @DBRef(lazy = true)
     private Set<Role> roles = new HashSet<>();
 
     public User(){}

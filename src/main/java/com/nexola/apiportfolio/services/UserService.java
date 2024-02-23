@@ -2,7 +2,6 @@ package com.nexola.apiportfolio.services;
 
 import com.nexola.apiportfolio.models.dto.PortfolioDTO;
 import com.nexola.apiportfolio.models.dto.UserDTO;
-import com.nexola.apiportfolio.models.entities.Portfolio;
 import com.nexola.apiportfolio.models.entities.Role;
 import com.nexola.apiportfolio.models.entities.User;
 import com.nexola.apiportfolio.models.projections.UserDetailsProjection;
@@ -49,17 +48,16 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<UserDetailsProjection> list = repository.searchUserAndRolesByEmail(username);
-        if (list.isEmpty()) {
-            throw new UsernameNotFoundException("User not found");
-        }
+        UserDetailsProjection details = repository.searchUserAndRolesByEmail(username);
+        if (details == null) throw new UsernameNotFoundException("Usuário não encontrado");
 
         User user = new User();
         user.setEmail(username);
-        user.setPassword(list.get(0).getPassword());
-        for (UserDetailsProjection projection : list) {
-            user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
+        user.setPassword(details.getPassword());
+        for (Role role : details.getRoles()) {
+            user.getRoles().add(role);
         }
+
 
         return user;
     }
