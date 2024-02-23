@@ -8,6 +8,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 
+import com.nexola.apiportfolio.config.customgrant.CustomPasswordAuthenticationConverter;
+import com.nexola.apiportfolio.config.customgrant.CustomPasswordAuthenticationProvider;
+import com.nexola.apiportfolio.config.customgrant.CustomUserAuthorities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -43,9 +46,6 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.nexola.apiportfolio.config.customgrant.CustomPasswordAuthenticationConverter;
-import com.nexola.apiportfolio.config.customgrant.CustomPasswordAuthenticationProvider;
-import com.nexola.apiportfolio.config.customgrant.CustomUserAuthorities;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
@@ -70,7 +70,7 @@ public class AuthorizationServerConfig {
     private UserDetailsService userDetailsService;
 
     @Bean
-    @Order(2)
+    @Order(1)
     public SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
 
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
@@ -191,3 +191,4 @@ public class AuthorizationServerConfig {
         return keyPair;
     }
 }
+
