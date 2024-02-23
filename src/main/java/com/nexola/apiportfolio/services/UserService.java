@@ -1,6 +1,9 @@
 package com.nexola.apiportfolio.services;
 
-import com.nexola.apiportfolio.models.dto.*;
+import com.nexola.apiportfolio.models.dto.PortfolioDTO;
+import com.nexola.apiportfolio.models.dto.UserDTO;
+import com.nexola.apiportfolio.models.dto.UserInsertDTO;
+import com.nexola.apiportfolio.models.dto.UserMinDTO;
 import com.nexola.apiportfolio.models.embedded.Author;
 import com.nexola.apiportfolio.models.entities.Portfolio;
 import com.nexola.apiportfolio.models.entities.Role;
@@ -97,7 +100,7 @@ public class UserService implements UserDetailsService {
         return new UserMinDTO(user);
     }
 
-    private void validateSelf(String userId) {
+    public void validateSelf(String userId) {
         User me = authenticated();
         if (!me.getId().equals(userId)) {
             throw new ForbiddenException("Acesso negado");

@@ -53,6 +53,30 @@ public class PortfolioDTO {
         return education;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
+    }
+
+    public void setFooter(Footer footer) {
+        this.footer = footer;
+    }
+
+    public void setExperience(Experience experience) {
+        this.experience = experience;
+    }
+
+    public void setEducation(Education education) {
+        this.education = education;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     public Author getAuthor() {
         return author;
     }

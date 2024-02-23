@@ -1,12 +1,11 @@
 package com.nexola.apiportfolio.models.embedded;
 
-import java.time.Year;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Project {
     private String title;
-    private Year conclusionYear;
+    private Integer conclusionYear;
     private String description;
     private String course;
 
@@ -14,7 +13,7 @@ public class Project {
 
     public Project(){}
 
-    public Project(String title, Year conclusionYear, String description, String course) {
+    public Project(String title, Integer conclusionYear, String description, String course) {
         this.title = title;
         this.conclusionYear = conclusionYear;
         this.description = description;
@@ -29,11 +28,11 @@ public class Project {
         this.title = title;
     }
 
-    public Year getConclusionYear() {
+    public Integer getConclusionYear() {
         return conclusionYear;
     }
 
-    public void setConclusionYear(Year conclusionYear) {
+    public void setConclusionYear(Integer conclusionYear) {
         this.conclusionYear = conclusionYear;
     }
 
