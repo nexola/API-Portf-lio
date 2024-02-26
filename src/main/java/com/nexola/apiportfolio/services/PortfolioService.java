@@ -22,11 +22,19 @@ public class PortfolioService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional(readOnly = true)
+    public PortfolioDTO findById(String id) {
+        Portfolio portfolio = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado")
+        );
+        return new PortfolioDTO(portfolio);
+    }
+
     @Transactional
     public PortfolioDTO update(PortfolioDTO dto) {
             User user = userService.authenticated();
             Portfolio portfolio = repository.findById(user.getPortfolio().getId()).orElseThrow(
-                    () -> new ResourceNotFoundException("Portfólio não encontrado")
+                    () -> new ResourceNotFoundException("Recurso não encontrado")
             );
             copyDtoToEntity(dto, portfolio);
 
