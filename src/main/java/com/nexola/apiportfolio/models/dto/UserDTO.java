@@ -12,12 +12,14 @@ public class UserDTO {
     private String id;
     @NotBlank(message = "Campo obrigatório")
     private String name;
+    @NotBlank(message = "Campo obrigatório")
     @Email(message = "Favor entrar com um email válido")
     private String email;
 
     private Set<RoleDTO> roles = new HashSet<>();
 
-    public UserDTO(){}
+    public UserDTO() {
+    }
 
     public UserDTO(User entity) {
         id = entity.getId();

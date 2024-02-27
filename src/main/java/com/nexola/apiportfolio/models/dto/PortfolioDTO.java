@@ -6,7 +6,6 @@ import com.nexola.apiportfolio.models.entities.User;
 
 public class PortfolioDTO {
     private String id;
-
     private Header header;
     private Footer footer;
     private Experience experience;
