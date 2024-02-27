@@ -5,10 +5,7 @@ import com.nexola.apiportfolio.services.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/portfolio")
@@ -22,5 +19,11 @@ public class PortfolioController {
     public ResponseEntity<PortfolioDTO> update(@RequestBody PortfolioDTO dto) {
         PortfolioDTO newDto = service.update(dto);
         return ResponseEntity.ok(newDto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PortfolioDTO> findById(@PathVariable String id) {
+        PortfolioDTO result = service.findById(id);
+        return ResponseEntity.ok(result);
     }
 }
