@@ -28,20 +28,52 @@ Tendo como base meu portfólio atual (02/2024), temos a seguinte estrutura:
 - CV (link)
 
 # Modelo de domínio
-![image](https://github.com/nexola/API-portfolio/assets/103954392/d0c8dfcc-1018-425e-8970-75deb7f4fdbd)
-# Modelo Completo do JSON
-![jsoncrack-portfolio-api](https://github.com/nexola/API-portfolio/assets/103954392/69fe4232-f8f4-4aea-b421-da245850185f)
+![image](https://github.com/nexola/API-portfolio/assets/103954392/a2f321c4-847c-4010-96d1-29cd46c37972)
+# DTO do Portfolio
+![image](https://github.com/nexola/API-portfolio-backend/assets/103954392/638f94a2-9747-439e-9dec-8e5c7589777c)
+
 # Tecnologias utilizadas
 - Java
 - Maven
 - Spring boot
 - Spring Security
-- JPA
-- Hibernate
-- H2
+- MongoDB
 - JWT
 - OAuth2
 - EmailSender
+
+# Environment e collection postman
+[collection](https://github.com/nexola/API-portfolio-backend/files/14426704/api-portfolio_postman-collection.json)
+
+[environment](https://github.com/nexola/API-portfolio-backend/files/14426708/api-portfolio_postman-environment.json)
+
+# Requisições
+## Auth
+### POST /oauth2/token
+> Login
+
+### POST /auth/recover-token
+> Email de recuperação de senha
+
+### PUT /auth/new-password
+> Atualização de senha
+
+## Portfolio
+### GET /portfolio/{id}
+> Obtém o portfólio por id
+
+### PUT /portfolio
+> Atualiza o portfólio do usuário autenticado
+
+## User
+### GET /user
+> Obtém o usuário autenticado
+
+### GET /user/portfolio
+> Obtém o portfólio do usuário autenticado
+
+### POST /user
+> Cadastra um novo usuário
 
 # Autor
 
