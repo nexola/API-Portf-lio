@@ -9,6 +9,7 @@ import com.nexola.apiportfolio.models.projections.UserDetailsProjection;
 import com.nexola.apiportfolio.repositories.PortfolioRepository;
 import com.nexola.apiportfolio.repositories.RoleRepository;
 import com.nexola.apiportfolio.repositories.UserRepository;
+import com.nexola.apiportfolio.services.exceptions.EmailException;
 import com.nexola.apiportfolio.services.exceptions.ForbiddenException;
 import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,8 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserDTO insert(UserInsertDTO dto) {
         User entity = new User();
+        User testUser = repository.findByEmail(entity.getEmail()).orElse(null);
+        if (testUser == null) throw new EmailException("Usuário já cadastrado");
         entity = createInsertUser(entity, dto);
         return new UserDTO(entity);
     }
