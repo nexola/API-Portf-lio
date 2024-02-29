@@ -1,15 +1,17 @@
 package com.nexola.apiportfolio.models.embedded;
 
+import java.time.LocalDate;
+
 public class Diploma {
     private String degree;
     private String course;
-    private Integer startYear;
-    private Integer conclusionYear;
+    private LocalDate startYear;
+    private LocalDate conclusionYear;
     private String institution;
 
     public Diploma(){}
 
-    public Diploma(String degree, String course, Integer startYear, Integer conclusionYear, String institution) {
+    public Diploma(String degree, String course, LocalDate startYear, LocalDate conclusionYear, String institution) {
         this.degree = degree;
         this.course = course;
         this.startYear = startYear;
@@ -33,19 +35,19 @@ public class Diploma {
         this.course = course;
     }
 
-    public Integer getStartYear() {
+    public LocalDate getStartYear() {
         return startYear;
     }
 
-    public void setStartYear(Integer startYear) {
+    public void setStartYear(LocalDate startYear) {
         this.startYear = startYear;
     }
 
-    public Integer getConclusionYear() {
+    public LocalDate getConclusionYear() {
         return conclusionYear;
     }
 
-    public void setConclusionYear(Integer conclusionYear) {
+    public void setConclusionYear(LocalDate conclusionYear) {
         this.conclusionYear = conclusionYear;
     }
 
