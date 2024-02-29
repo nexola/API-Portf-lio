@@ -1,6 +1,10 @@
 package com.nexola.apiportfolio.services;
 
-import com.nexola.apiportfolio.models.dto.*;
+import com.nexola.apiportfolio.controllers.PortfolioController;
+import com.nexola.apiportfolio.models.dto.PortfolioDTO;
+import com.nexola.apiportfolio.models.dto.UserDTO;
+import com.nexola.apiportfolio.models.dto.UserInsertDTO;
+import com.nexola.apiportfolio.models.dto.UserMinDTO;
 import com.nexola.apiportfolio.models.embedded.Author;
 import com.nexola.apiportfolio.models.entities.Portfolio;
 import com.nexola.apiportfolio.models.entities.Role;
@@ -11,7 +15,6 @@ import com.nexola.apiportfolio.repositories.RoleRepository;
 import com.nexola.apiportfolio.repositories.UserRepository;
 import com.nexola.apiportfolio.services.exceptions.EmailException;
 import com.nexola.apiportfolio.services.exceptions.ForbiddenException;
-import com.nexola.apiportfolio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,8 +26,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -89,7 +92,9 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserMinDTO getMe() {
         User user = authenticated();
-        return new UserMinDTO(user);
+        return new UserMinDTO(user)
+                .add(linkTo(methodOn(PortfolioController.class)
+                        .findById(user.getPortfolio().getId())).withRel("portfolio")) ;
     }
 
     public void validateSelf(String userId) {

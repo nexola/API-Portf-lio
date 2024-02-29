@@ -1,8 +1,9 @@
 package com.nexola.apiportfolio.models.dto;
 
 import com.nexola.apiportfolio.models.entities.User;
+import org.springframework.hateoas.RepresentationModel;
 
-public class UserMinDTO {
+public class UserMinDTO extends RepresentationModel<UserMinDTO> {
     private String name;
     private String email;
 
